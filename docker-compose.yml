@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  sinapsis_postgres:
+    container_name: sinapsis_postgres
+    image: postgres:13.1-alpine
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=q7963q
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=sinapsis_db
+    networks:
+      - sinapsis-network
+
+  sinapsis_api:
+    container_name: sinapsis_api
+    image: sinapsis_api:0.1
+    build:
+      context: ./backend_spring_boot
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://sinapsis_postgres:5432/sinapsis_db
+    depends_on:
+      - sinapsis_postgres
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    networks:
+      - sinapsis-network
+
+  sinapsis_frontend:
+    container_name: sinapsis_frontend
+    image: sinapsis_frontend:0.1
+    build:
+      context: ./frontend_vue
+    expose:
+      - "3001"
+    ports:
+      - "3001:80"
+    networks:
+      - sinapsis-network
+    depends_on:
+      - sinapsis_api
+
+
+volumes:
+  postgres-data: {}
+
+networks:
+  sinapsis-network:
+    driver: bridge
