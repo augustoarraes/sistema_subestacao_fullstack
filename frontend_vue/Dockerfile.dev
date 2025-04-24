@@ -1,0 +1,14 @@
+FROM node:18
+
+WORKDIR /app
+COPY . .
+
+RUN apt-get update && \
+    apt-get install -y iputils-ping curl net-tools && \
+    rm -rf /var/lib/apt/lists/*
+    
+RUN npm install
+
+EXPOSE 3001
+
+CMD ["npm", "run", "serve"]
