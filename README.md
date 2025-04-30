@@ -7,7 +7,7 @@ Este projeto é uma aplicação full stack de Gerencimento de Redes de Distribui
 
 ## Subindo o APP BackEnd
 
-Antes de subir a aplicação, verificar as credenciais no Docker-Compose e no application.properties do backend.
+Antes de subir a aplicação, verificar as credenciais, principalmente do BD, no Docker-Compose e no application.properties do backend.
 
 Subindo a aplicação:
 ```bash
@@ -19,4 +19,9 @@ Acessando a aplicação [http://localhost:3001](http://localhost:3001)
 ## Documentação da API
 
 [Doc](http://localhost:8080/swagger-ui/index.html)
+
+## Contato
+
+Augusto Arraes
+[site](http://linktr.ee/a.arraes)
 
